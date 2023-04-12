@@ -4,15 +4,17 @@ const userSchema = new Schema(
   {
     username: { type: String, required: true },
     email: { type: String, required: true },
-    avatar: String,
+    avatar: { type: String },
     role: { type: String, default: "USER" },
     isActive: { type: Boolean, default: true },
-    providers: [
-      {
+    providers: {
+      google: {
         providerId: { type: String },
-        providerName: { type: String },
       },
-    ],
+      facebook: {
+        providerId: { type: String },
+      },
+    },
   },
   { timestamps: true }
 );

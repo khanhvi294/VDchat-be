@@ -15,6 +15,8 @@ app.use(express.json());
 app.use(
   cors({
     origin: process.env.REACT_APP_CLIENT_URI,
+    credentials: true, //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
   })
 );
 app.use(

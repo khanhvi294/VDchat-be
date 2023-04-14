@@ -1,11 +1,13 @@
 import express from "express";
 import UserModel from "../models/user.model";
+import userController from "../controllers/user.controller";
+import { isAuthenticated } from "../middlewares/auth";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  console.log("first");
-});
+const verifyUser = [isAuthenticated];
+
+router.get("/info", verifyUser, userController.getUserInfo);
 
 router.post("/", async (req, res) => {
   const user = new UserModel({

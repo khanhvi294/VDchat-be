@@ -6,15 +6,8 @@ import authController from "../controllers/auth.controller";
 import dotenv from "dotenv";
 dotenv.config();
 
-const REACT_APP_CLIENT_URI = process.env.REACT_APP_CLIENT_URI;
+const REACT_APP_CLIENT_URI_CALLBACK = process.env.REACT_APP_CLIENT_URI_CALLBACK;
 const REACT_APP_CLIENT_URI_ERROR = process.env.REACT_APP_CLIENT_URI_ERROR;
-
-router.get("/test", (req, res) => {
-  console.log("req ", req.user, req.isAuthenticated());
-  return res.json(req.user);
-});
-
-// router.get("/success", authController.authSuccess);
 
 router.get(
   "/google",
@@ -33,7 +26,9 @@ router.get(
     failureRedirect: REACT_APP_CLIENT_URI_ERROR,
   }),
   function (req, res) {
-    res.redirect(`${REACT_APP_CLIENT_URI}?accessToken=${req.user.accessToken}`);
+    res.redirect(
+      `${REACT_APP_CLIENT_URI_CALLBACK}?accessToken=${req.user.accessToken}`
+    );
   }
 );
 
@@ -44,7 +39,9 @@ router.get(
     failureRedirect: REACT_APP_CLIENT_URI_ERROR,
   }),
   function (req, res) {
-    res.redirect(`${REACT_APP_CLIENT_URI}?accessToken=${req.user.accessToken}`);
+    res.redirect(
+      `${REACT_APP_CLIENT_URI_CALLBACK}?accessToken=${req.user.accessToken}`
+    );
   }
 );
 

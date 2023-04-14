@@ -8,11 +8,8 @@ const secret = process.env.TOKEN_SECRET;
 let generateToken = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log("data ", data);
-
       let token = await jwt.sign(data, secret, { expiresIn: tokenLife });
-      console.log("token ", token);
-
+      console.log("token", token);
       resolve(token);
     } catch (err) {
       reject(err);

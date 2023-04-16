@@ -4,10 +4,12 @@ const notificationSchema = new Schema(
   {
     senderId: { type: Schema.Types.ObjectId, ref: "User" },
     isRead: { type: Boolean },
+    receiverId: { type: Schema.Types.ObjectId, ref: "User" },
+    type: { type: String },
   },
   { timestamps: true }
 );
 
-const Notification = model("Notification", notificationSchema);
+const NotificationModel = model("Notification", notificationSchema);
 
-export default Notification;
+export default NotificationModel;

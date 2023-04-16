@@ -8,6 +8,6 @@ const notificationSchema = new Schema(
   { timestamps: true }
 );
 
-const Notification = model("Notification", notificationSchema);
+const NotificationModel = model("Notification", notificationSchema);
 
-export default Notification;
+export default NotificationModel;

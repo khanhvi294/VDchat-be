@@ -1,7 +1,8 @@
 import express from "express";
-import MessageModel from "../models/message.model";
+import messageController from "../controllers/message.controller";
+import { isAuthenticated } from "../middlewares/auth";
 const router = express.Router();
 
-router.post("/", async (req, res) => {
-  const message = new MessageModel({});
-});
+const verifyUser = [isAuthenticated];
+router.post("/", verifyUser, messageController.createMessage);
+export default router;

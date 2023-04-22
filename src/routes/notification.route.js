@@ -6,6 +6,7 @@ const verifyUser = [isAuthenticated];
 
 const router = express.Router();
 
+router.get("/", notificationController.getNotifications);
 router.post("/", verifyUser, notificationController.createNotification);
 
 export default router;

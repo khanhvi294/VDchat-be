@@ -7,7 +7,10 @@ const verifyUser = [isAuthenticated];
 const router = express.Router();
 
 router.post("/", verifyUser, conversationController.createConversation);
-router.post("/group", verifyUser, conversationController.createGroupChat);
-router.post("/group/out", verifyUser, conversationController.createGroupChat);
+router.patch(
+  "/group/out/:groupId",
+  verifyUser,
+  conversationController.outGroupChat
+);
 
 export default router;

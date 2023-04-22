@@ -15,7 +15,7 @@ const isAuthenticated = async (req, res, next) => {
     if (!result.success) {
       return res.status(401).json(result);
     }
-    req.userData = result.decoded || "";
+    req.user = result.decoded || "";
 
     next();
   } catch (err) {

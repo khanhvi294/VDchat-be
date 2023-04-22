@@ -1,19 +1,12 @@
 import { Schema, model } from "mongoose";
 
-export const StatusConversation = {
-  REJECTED: "REJECTED",
-  PENDING: "PENDING",
-  ACTIVE: "ACTIVE",
-};
-
-const conversationSchema = new Schema()(
+const conversationSchema = new Schema(
   {
     creatorId: { type: Schema.Types.ObjectId, ref: "User" },
-    participaints: [{ type: Schema.Types.ObjectId }],
+    participaints: [{ type: Schema.Types.ObjectId, ref: "User" }],
     avatar: { type: String },
     name: { type: String },
     isGroup: { type: Boolean },
-    status: { type: String },
   },
   { timestamps: true }
 );

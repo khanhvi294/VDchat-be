@@ -23,8 +23,10 @@ passport.use(
     async function (accessToken, refreshToken, profile, callback) {
       try {
         let result = await authService.authGoogleSuccess(profile);
+        console.log("result ", result);
         callback(null, result);
       } catch (error) {
+        console.log("erro from passport ", error);
         callback(error, null);
       }
     }

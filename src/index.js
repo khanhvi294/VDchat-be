@@ -3,9 +3,13 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./configs/db";
 const session = require("express-session");
+import { createServer } from "http";
 
 import passport from "passport";
 import initRoutes from "./routes";
+import sockerServer, { initSocket } from "./configs/socket";
+
+import { Server } from "socket.io";
 
 dotenv.config();
 
@@ -38,12 +42,27 @@ app.use(passport.session());
 const port = process.env.PORT || 5000;
 connectDB();
 
+const httpServer = createServer(app);
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: process.env.REACT_APP_CLIENT_URI,
+//     credentials: true,
+//   },
+// });
+
+initSocket(httpServer);
+sockerServer();
+
 initRoutes(app);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`App is listening on port ${port}`);
 });
+
+// app.listen(port, () => {
+//   console.log(`App is listening on port ${port}`);
+// });

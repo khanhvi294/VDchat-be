@@ -14,6 +14,17 @@ const getUserInfo = (userId) => {
   });
 };
 
-const userService = { getUserInfo };
+const updateUserInfo = async (userId, data) => {
+  try {
+    let userUpdate = await UserModel.findByIdAndUpdate(userId, data, {
+      returnDocument: "after",
+    });
+    return userUpdate;
+  } catch (error) {
+    return error;
+  }
+};
+
+const userService = { getUserInfo, updateUserInfo };
 
 export default userService;

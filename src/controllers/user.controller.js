@@ -10,6 +10,15 @@ const getUserInfo = async (req, res) => {
   }
 };
 
-const userControler = { getUserInfo };
+const updateUserInfo = async (req, res) => {
+  try {
+    let result = await userService.updateUserInfo(req.user.id, req.body);
+    return res.status(200).json({ data: result, success: true });
+  } catch (error) {
+    return res.status(404).json({ error });
+  }
+};
 
-export default userControler;
+const userController = { getUserInfo, updateUserInfo };
+
+export default userController;

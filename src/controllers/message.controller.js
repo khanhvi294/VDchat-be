@@ -1,4 +1,3 @@
-import MessageModel from "../models/message.model";
 import messageService from "../services/message.service";
 
 const createMessage = async (req, res) => {

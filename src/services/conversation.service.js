@@ -7,7 +7,6 @@ const createConversation = async (userId, data) => {
     creatorId: userId,
     participaints: [...data.participaints, userId],
   });
-
   if (data.isGroup) {
     newConversation.avatar = data.avatar;
     newConversation.name = data.name;
@@ -22,10 +21,15 @@ const outGroupChat = async (userId, groupId) => {
     { participants: { $pull: userId } }
   );
 };
-
+const getConversations = async (userId) => {
+  return await ConversationModel.find({
+    participaints: { $in: [userId] },
+  });
+};
 const conversationService = {
   createConversation,
   outGroupChat,
+  getConversations,
 };
 
 export default conversationService;

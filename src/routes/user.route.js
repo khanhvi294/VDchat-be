@@ -2,6 +2,7 @@ import express from "express";
 import UserModel from "../models/user.model";
 import userController from "../controllers/user.controller";
 import { isAuthenticated } from "../middlewares/auth";
+import userService from "../services/user.service";
 
 const router = express.Router();
 
@@ -28,5 +29,7 @@ router.post("/", async (req, res) => {
 router.get("/users", async (req, res) => {
   // const users
 });
+
+router.patch("/users/update", userController.updateUserInfo);
 
 export default router;

@@ -14,9 +14,11 @@ const getUserInfo = (userId) => {
   });
 };
 
-const updateUserInfo = async (data) => {
+const updateUserInfo = async (userId, data) => {
   try {
-    let userUpdate = await UserModel.findByIdAndUpdate(data.id, data);
+    let userUpdate = await UserModel.findByIdAndUpdate(userId, data, {
+      returnDocument: "after",
+    });
     return userUpdate;
   } catch (error) {
     return error;

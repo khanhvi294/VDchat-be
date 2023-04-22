@@ -29,10 +29,21 @@ const outGroupChat = async (req, res) => {
     return res.status(404).json({ error, success: false });
   }
 };
+const getConversations = async (req, res) => {
+  try {
+    let page = req.query.page;
+    let limit = req.query.limit;
+    let result = await conversationService.getConversations(req.user.id);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(404).json({ error });
+  }
+};
 
 const conversationController = {
   createConversation,
   outGroupChat,
+  getConversations,
 };
 
 export default conversationController;

@@ -12,5 +12,6 @@ router.patch(
   verifyUser,
   conversationController.outGroupChat
 );
+router.get("/", verifyUser, conversationController.getConversations);
 
 export default router;

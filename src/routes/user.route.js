@@ -1,7 +1,7 @@
 import express from "express";
-import UserModel from "../models/user.model";
 import userController from "../controllers/user.controller";
 import { isAuthenticated } from "../middlewares/auth";
+import UserModel from "../models/user.model";
 
 const router = express.Router();
 
@@ -25,8 +25,6 @@ router.post("/", async (req, res) => {
   return res.json(user);
 });
 
-router.get("/users", async (req, res) => {
-  // const users
-});
+router.patch("/update", verifyUser, userController.updateUserInfo);
 
 export default router;

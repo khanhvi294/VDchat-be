@@ -3,14 +3,10 @@ import ConversationModel, {
 } from "../models/conversation.model";
 
 const createConversation = async (userId, data) => {
-  console.log("user ", userId, data);
   let newConversation = new ConversationModel({
     creatorId: userId,
     participants: [userId, ...data.participants],
   });
-
-  console.log("new ", newConversation);
-
   if (data.isGroup) {
     newConversation.avatar = data.avatar;
     newConversation.name = data.name;
@@ -53,10 +49,15 @@ const outGroupChat = async (userId, groupId) => {
   await conversation.save();
   return conversation;
 };
-
+const getConversations = async (userId) => {
+  return await ConversationModel.find({
+    participaints: { $in: [userId] },
+  });
+};
 const conversationService = {
   createConversation,
   outGroupChat,
+  getConversations,
 };
 
 export default conversationService;

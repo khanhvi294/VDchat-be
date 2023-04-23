@@ -26,10 +26,42 @@ const getConversations = async (userId) => {
     participaints: { $in: [userId] },
   });
 };
+const updateGroupChat = async (groupId, data) => {
+  return await ConversationModel.findByIdAndUpdate(groupId, data, {
+    returnDocument: "after",
+  });
+};
+
+const addMemberToGroupChat = async (userId, data) => {
+  const result = await ConversationModel.findById(data.groupId, "creatorId");
+  const creatorId = result.creatorId.toString();
+  if (userId !== creatorId) {
+    return;
+  }
+  return await ConversationModel.findByIdAndUpdate(
+    { _id: data.groupId },
+    { $push: { participants: data.participantId } },
+    {
+      returnDocument: "after",
+    }
+  );
+};
+
+const removeMemberFromGroupChat = async (data) => {
+  return await ConversationModel.findByIdAndUpdate(
+    data.groupId,
+    { $pull: { participants: data.participantId } },
+    { returnDocument: "after" }
+  );
+};
+
 const conversationService = {
   createConversation,
   outGroupChat,
   getConversations,
+  updateGroupChat,
+  addMemberToGroupChat,
+  removeMemberFromGroupChat,
 };
 
 export default conversationService;

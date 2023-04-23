@@ -49,11 +49,47 @@ const getConversations = async (req, res) => {
   }
 };
 
+const updateGroupChat = async (req, res) => {
+  try {
+    console.log(req.params.groupId);
+    let result = await conversationService.updateGroupChat(
+      req.params.groupId,
+      req.body
+    );
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(404).json({ error });
+  }
+};
+
+const addMemberToGroupChat = async (req, res) => {
+  try {
+    let result = await conversationService.addMemberToGroupChat(
+      req.user.id,
+      req.body
+    );
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(404).json({ error });
+  }
+};
+
+const removeMemberFromGroupChat = async (req, res) => {
+  try {
+    let result = await conversationService.removeMemberFromGroupChat(req.body);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(404).json({ error });
+  }
+};
 const conversationController = {
   createConversation,
   createGroupChat,
   outGroupChat,
   getConversations,
+  updateGroupChat,
+  addMemberToGroupChat,
+  removeMemberFromGroupChat,
 };
 
 export default conversationController;

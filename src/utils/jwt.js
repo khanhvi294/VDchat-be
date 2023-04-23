@@ -20,7 +20,7 @@ let generateToken = (data) => {
 let verifyToken = (token) => {
   return new Promise((resolve, reject) => {
     try {
-      console.log("token verify ", token);
+      // console.log("token verify ", token);
       jwt.verify(token, secret, function (err, decoded) {
         if (err) {
           console.log("err verify token:", err.message);

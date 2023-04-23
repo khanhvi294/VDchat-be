@@ -5,4 +5,5 @@ const router = express.Router();
 
 const verifyUser = [isAuthenticated];
 router.post("/", verifyUser, messageController.createMessage);
+router.patch("/delete", verifyUser, messageController.deleteMessage);
 export default router;

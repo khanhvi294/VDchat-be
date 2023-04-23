@@ -13,5 +13,20 @@ router.patch(
   conversationController.outGroupChat
 );
 router.get("/", verifyUser, conversationController.getConversations);
+router.patch(
+  "/group/update/:groupId",
+  verifyUser,
+  conversationController.updateGroupChat
+);
+router.patch(
+  "/group/addmember",
+  verifyUser,
+  conversationController.addMemberToGroupChat
+);
+router.patch(
+  "/group/removemember",
+  verifyUser,
+  conversationController.removeMemberFromGroupChat
+);
 
 export default router;

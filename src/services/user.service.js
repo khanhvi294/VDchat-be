@@ -35,6 +35,16 @@ const blockUser = async (userId, blockUserId) => {
   );
 };
 
-const userService = { getUserInfo, updateUserInfo, blockUser };
+const unblockUser = async (userId, blockUserId) => {
+  return await UserModel.findByIdAndUpdate(
+    userId,
+    {
+      $pull: { blockIds: blockUserId },
+    },
+    { returnDocument: "after" }
+  );
+};
+
+const userService = { getUserInfo, updateUserInfo, blockUser, unblockUser };
 
 export default userService;

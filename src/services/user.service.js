@@ -25,6 +25,16 @@ const updateUserInfo = async (userId, data) => {
   }
 };
 
-const userService = { getUserInfo, updateUserInfo };
+const blockUser = async (userId, blockUserId) => {
+  return await UserModel.findByIdAndUpdate(
+    userId,
+    {
+      $push: { blockIds: blockUserId },
+    },
+    { returnDocument: "after" }
+  );
+};
+
+const userService = { getUserInfo, updateUserInfo, blockUser };
 
 export default userService;

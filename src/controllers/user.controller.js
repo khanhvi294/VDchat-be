@@ -19,6 +19,16 @@ const updateUserInfo = async (req, res) => {
   }
 };
 
-const userController = { getUserInfo, updateUserInfo };
+const blockUser = async (req, res) => {
+  try {
+    let result = await userService.blockUser(req.user.id, req.params.userId);
+    return res.status(200).json({ data: result, success: true });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({ error });
+  }
+};
+
+const userController = { getUserInfo, updateUserInfo, blockUser };
 
 export default userController;

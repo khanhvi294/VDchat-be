@@ -27,4 +27,8 @@ router.post("/", async (req, res) => {
 
 router.patch("/update", verifyUser, userController.updateUserInfo);
 
+router.patch("/block/:userId", verifyUser, userController.blockUser);
+
+router.patch("/unblock/:userId", verifyUser, userController.unblockUser);
+
 export default router;

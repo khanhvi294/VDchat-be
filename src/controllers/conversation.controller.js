@@ -42,7 +42,6 @@ const getConversations = async (req, res) => {
 
 const updateGroupChat = async (req, res) => {
   try {
-    console.log(req.params.groupId);
     let result = await conversationService.updateGroupChat(
       req.params.groupId,
       req.body

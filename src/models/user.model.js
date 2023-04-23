@@ -7,6 +7,7 @@ const userSchema = new Schema(
     avatar: { type: String },
     role: { type: String, default: "USER" },
     isActive: { type: Boolean, default: true },
+    blockIds: [{ type: Schema.Types.ObjectId, ref: "User" }],
     providers: {
       google: {
         providerId: { type: String },

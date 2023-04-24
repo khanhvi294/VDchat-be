@@ -1,5 +1,4 @@
 import notificationService from "../services/notification.service";
-import { io } from "../configs/socket";
 
 const createNotification = async (req, res) => {
   try {

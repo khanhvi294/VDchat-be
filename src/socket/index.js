@@ -2,20 +2,15 @@ import { Server } from "socket.io";
 import dotenv from "dotenv";
 dotenv.config();
 
-// const sockerServer = (io) => {
-
-//   io.on("connection", (socket) => {
-//     console.log("socet init ", socket.id);
-
-//     socket.emit("hello", "world");
-
-//     socket.on("hahah", (data) => {
-//       console.log("bkcbcbcvb", data);
-//     });
-//   });
-// };
-
 let io = {};
+
+let users = [];
+
+const handleJoin = (data) => {
+  users.push(data);
+};
+
+const handleLeave = (data) => {};
 
 const initSocket = (httpServer) => {
   io = new Server(httpServer, {
@@ -30,14 +25,26 @@ const sockerServer = () => {
   io.on("connection", (socket) => {
     console.log("socet init ", socket.id);
 
-    socket.on("join", (data) => {
-      console.log("sfdhshfh", data);
+    socket.on("join", (userId) => {
+      console.log("sfdhshfh", userId);
+      if (userId) {
+        handleJoin({
+          userId,
+          socketId: socket.id,
+        });
+      }
     });
 
-    socket.emit("hello", "world");
+    socket.on("join-conversations", (conversationIds) => {
+      conversationIds.forEach((id) => socket.join(id));
+    });
 
-    socket.on("hahah", (data) => {
-      console.log("bkcbcbcvb", data);
+    socket.on("join-conversation", (conversationId) => {
+      socket.join(conversationId);
+    });
+
+    socket.on("leave-conversation", (conversationId) => {
+      socket.leave(conversationId);
     });
   });
 };

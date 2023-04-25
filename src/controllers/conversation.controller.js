@@ -10,6 +10,7 @@ const createConversation = async (req, res) => {
     // neu co realtime thi realtime o day
     return res.status(200).json(result);
   } catch (error) {
+    console.log("error ", error);
     return res.status(404).json({ error });
   }
 };
@@ -17,8 +18,7 @@ const createConversation = async (req, res) => {
 const outGroupChat = async (req, res) => {
   try {
     let result = await conversationService.outGroupChat(
-      // req.user.id,
-      "6440f6db2a10e05c54af2dd8",
+      req.user.id,
       req.params.groupId
     );
 
@@ -31,9 +31,13 @@ const outGroupChat = async (req, res) => {
 };
 const getConversations = async (req, res) => {
   try {
-    let page = req.query.page;
-    let limit = req.query.limit;
-    let result = await conversationService.getConversations(req.user.id);
+    const { page, limit } = req.query;
+    console.log("sfd", req.query);
+    let result = await conversationService.getConversations(
+      req.user.id,
+      page,
+      limit
+    );
     return res.status(200).json(result);
   } catch (error) {
     return res.status(404).json({ error });

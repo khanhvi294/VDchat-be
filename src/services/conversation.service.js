@@ -1,12 +1,14 @@
-import ConversationModel, {
-  StatusConversation,
-} from "../models/conversation.model";
+import ConversationModel from "../models/conversation.model";
+import { getResultPaginate } from "./pagination.service";
+
+const LIMIT_SIZE = 5;
 
 const createConversation = async (userId, data) => {
   let newConversation = new ConversationModel({
     creatorId: userId,
     participants: [userId, ...data.participants],
   });
+
   if (data.isGroup) {
     newConversation.avatar = data.avatar;
     newConversation.name = data.name;
@@ -49,10 +51,20 @@ const outGroupChat = async (userId, groupId) => {
   await conversation.save();
   return conversation;
 };
-const getConversations = async (userId) => {
-  return await ConversationModel.find({
-    participaints: { $in: [userId] },
+const getConversations = async (userId, page = 0, limit = LIMIT_SIZE) => {
+  return await getResultPaginate({
+    Model: ConversationModel,
+    query: { participants: { $in: [userId] } },
+    sort: { updatedAt: -1 },
+    page,
+    limit,
   });
+  // return await ConversationModel.find(
+  //   { participants: { $in: [userId] } },
+  //   {
+  //     sort: { updatedAt: -1 },
+  //   }
+  // );
 };
 const updateGroupChat = async (groupId, data) => {
   return await ConversationModel.findByIdAndUpdate(groupId, data, {

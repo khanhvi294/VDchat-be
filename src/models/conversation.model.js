@@ -7,6 +7,8 @@ const conversationSchema = new Schema(
     avatar: { type: String },
     name: { type: String },
     isGroup: { type: Boolean },
+    // lastMessageId: { type: Schema.Types.ObjectId, ref: "Message" },
+    lastMessage: { type: String },
   },
   { timestamps: true }
 );

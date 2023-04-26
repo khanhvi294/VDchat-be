@@ -7,9 +7,7 @@ import { createServer } from "http";
 
 import passport from "passport";
 import initRoutes from "./routes";
-import sockerServer, { initSocket } from "./configs/socket";
-
-import { Server } from "socket.io";
+import sockerServer, { initSocket } from "./socket";
 
 dotenv.config();
 

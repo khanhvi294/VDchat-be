@@ -1,5 +1,6 @@
 import MessageModel from "../models/message.model";
 import ConversationModel from "../models/conversation.model";
+import UserModel from "../models/user.model";
 
 const getMessages = async (conversationId) => {
   console.log("conversatioID ", conversationId);
@@ -8,6 +9,7 @@ const getMessages = async (conversationId) => {
   })
     .sort({ createdAt: -1 })
     .populate("senderId", "username avatar");
+
   return messages ? messages.reverse() : [];
 };
 

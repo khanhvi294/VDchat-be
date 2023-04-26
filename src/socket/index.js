@@ -23,10 +23,9 @@ const initSocket = (httpServer) => {
 
 const sockerServer = () => {
   io.on("connection", (socket) => {
-    console.log("socet init ", socket.id);
+    // console.log("socet init ", socket.id);
 
     socket.on("join", (userId) => {
-      console.log("sfdhshfh", userId);
       if (userId) {
         handleJoin({
           userId,
@@ -36,6 +35,7 @@ const sockerServer = () => {
     });
 
     socket.on("join-conversations", (conversationIds) => {
+      // console.log("join-conversations", conversationIds);
       conversationIds.forEach((id) => socket.join(id));
     });
 

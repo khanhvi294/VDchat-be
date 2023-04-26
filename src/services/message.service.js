@@ -1,10 +1,23 @@
 import MessageModel from "../models/message.model";
 import ConversationModel from "../models/conversation.model";
 
+const getMessages = async (conversationId) => {
+  console.log("conversatioID ", conversationId);
+  let messages = await MessageModel.find({
+    conversationId,
+  })
+    .sort({ createdAt: -1 })
+    .populate("senderId", "username avatar");
+  return messages ? messages.reverse() : [];
+};
+
 const createMessage = async (data) => {
   let newMessage = new MessageModel({
-    ...data,
+    content: "content content content content content content",
+    senderId: "64398312e38609d9408720b2",
+    // senderId: "6441483c8a33ac5e28b95b25",
     type: "string",
+    conversationId: "64443a5b739e5608426ccc33",
   });
   newMessage = await newMessage.save();
   return newMessage;
@@ -39,6 +52,7 @@ const deleteMessage = async (data) => {
 const messageService = {
   createMessage,
   deleteMessage,
+  getMessages,
 };
 
 export default messageService;

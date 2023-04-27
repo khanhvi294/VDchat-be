@@ -17,14 +17,17 @@ export const getResultPaginate = async ({
   const [total, content] = await Promise.all([totalPromises, contentPromises]);
   const totalPages = Math.ceil(total / limit);
 
+  page = +page;
   return {
     content,
     totalPages,
+    total,
     page,
     first: page === 0,
-    last: page === totalPages,
-    hasNextPage: page < totalPages,
+    last: page === totalPages - 1,
+    hasNextPage: page < totalPages - 1,
     hasPreviousPage: page > 0,
+    nextPage: page + 1,
   };
 };
 

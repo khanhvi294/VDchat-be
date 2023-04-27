@@ -58,6 +58,7 @@ const getConversations = async (userId, page = 0, limit = LIMIT_SIZE) => {
     sort: { updatedAt: -1 },
     page,
     limit,
+    populate: { path: "lastMessage", select: "content createdAt" },
   });
   // return await ConversationModel.find(
   //   { participants: { $in: [userId] } },

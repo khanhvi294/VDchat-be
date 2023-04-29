@@ -11,13 +11,11 @@ const getMessages = async (conversationId) => {
   return messages ? messages.reverse() : [];
 };
 
-const createMessage = async (data) => {
+const createMessage = async (userId, data) => {
   let newMessage = new MessageModel({
-    content: "content content content content content content",
-    senderId: "64398312e38609d9408720b2",
-    // senderId: "6441483c8a33ac5e28b95b25",
     type: "string",
-    conversationId: "64443a5b739e5608426ccc33",
+    senderId: userId,
+    ...data,
   });
   newMessage = await newMessage.save();
   return newMessage;

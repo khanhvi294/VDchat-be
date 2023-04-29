@@ -12,7 +12,7 @@ const getMessages = async (req, res) => {
 
 const createMessage = async (req, res) => {
   try {
-    let result = await messageService.createMessage(req.body);
+    let result = await messageService.createMessage(req.user.id, req.body);
     conversationService.updateGroupChat(result.conversationId, {
       lastMessage: result._id,
     });

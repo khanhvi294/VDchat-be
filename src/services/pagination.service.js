@@ -22,11 +22,13 @@ export const getResultPaginate = async ({
   return {
     content,
     totalPages,
-    page: page,
+    total,
+    page,
     first: page === 0,
     last: page === totalPages - 1,
     hasNextPage: page < totalPages - 1,
     hasPreviousPage: page > 0,
+    nextPage: page + 1,
   };
 };
 

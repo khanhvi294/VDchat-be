@@ -1,6 +1,7 @@
 import MessageModel from "../models/message.model";
 import ConversationModel from "../models/conversation.model";
 import UserModel from "../models/user.model";
+import { uploadImage } from "../utils/cloudinary";
 
 const getMessages = async (conversationId) => {
   console.log("conversatioID ", conversationId);
@@ -14,15 +15,43 @@ const getMessages = async (conversationId) => {
 };
 
 const createMessage = async (data) => {
-  let newMessage = new MessageModel({
-    content: "content content content content content content",
-    senderId: "64398312e38609d9408720b2",
-    // senderId: "6441483c8a33ac5e28b95b25",
-    type: "string",
-    conversationId: "64443a5b739e5608426ccc33",
-  });
-  newMessage = await newMessage.save();
-  return newMessage;
+  let res = [];
+  // uploadImage(data.image1[0].tempFilePath)
+  //   // .then((response) => {
+  //   //   return response.json();
+  //   // })
+  //   .then((data) => {
+  //     console.log("data return", data);
+  //     return { res: data };
+  //   })
+  //   .catch((e) => {
+  //     console.log("error", e);
+  //     return e;
+  //   });
+  if (data.image1) {
+    for (let file of data.image1) {
+      let url = await uploadImage(file.tempFilePath);
+      res.push(url);
+    }
+
+    // res = await Promise.all(
+    //   data.image1.map(async (message) => {
+    //     let url = await uploadImage(message.tempFilePath);
+    //     return url;
+    //   })
+    // );
+  }
+  return { message: "ok", res };
+
+  // let newMessage = new MessageModel({
+  //   content: "content content content content content content",
+  //   senderId: "64398312e38609d9408720b2",
+  //   // senderId: "6441483c8a33ac5e28b95b25",
+  //   type: "string",
+  //   conversationId: "64443a5b739e5608426ccc33",
+  // });
+  // newMessage = await newMessage.save();
+  // return newMessage;
 };
 
 const deleteMessage = async (data) => {

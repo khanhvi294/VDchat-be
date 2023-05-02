@@ -18,7 +18,7 @@ const opts = {
   resource_type: "auto",
   unique_filename: true,
   // use_filename: true,
-  folder: "vd-chat/images",
+  folder: "vd-chat/media",
 };
 
 const uploadImage = (image) => {

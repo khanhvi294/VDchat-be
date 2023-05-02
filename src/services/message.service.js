@@ -3,8 +3,18 @@ import ConversationModel from "../models/conversation.model";
 import UserModel from "../models/user.model";
 import { uploadImage } from "../utils/cloudinary";
 
-const getMessages = async (conversationId) => {
+const getMessages = async (userId, conversationId) => {
   console.log("conversatioID ", conversationId);
+  let isInConversation = await ConversationModel.findOne({
+    _id: conversationId,
+    participants: { $in: userId },
+  });
+  console.log("res", isInConversation);
+
+  if (!isInConversation) {
+    throw new Error("Failed to get conversation");
+  }
+
   let messages = await MessageModel.find({
     conversationId,
   })
@@ -14,7 +24,7 @@ const getMessages = async (conversationId) => {
   return messages ? messages.reverse() : [];
 };
 
-const createMessage = async (data) => {
+const createMessage = async (userId, data) => {
   let res = [];
   // uploadImage(data.image1[0].tempFilePath)
   //   // .then((response) => {
@@ -52,6 +62,14 @@ const createMessage = async (data) => {
   // });
   // newMessage = await newMessage.save();
   // return newMessage;
+  // const createMessage = async (userId, data) => {
+  //   let newMessage = new MessageModel({
+  //     type: "string",
+  //     senderId: userId,
+  //     ...data,
+  //   });
+  //   newMessage = await newMessage.save();
+  //   return newMessage;
 };
 
 const deleteMessage = async (data) => {

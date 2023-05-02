@@ -35,7 +35,6 @@ const sockerServer = () => {
     });
 
     socket.on("join-conversations", (conversationIds) => {
-      // console.log("join-conversations", conversationIds);
       conversationIds.forEach((id) => socket.join(id));
     });
 

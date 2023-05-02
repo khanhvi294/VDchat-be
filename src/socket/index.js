@@ -23,10 +23,9 @@ const initSocket = (httpServer) => {
 
 const sockerServer = () => {
   io.on("connection", (socket) => {
-    console.log("socet init ", socket.id);
+    // console.log("socet init ", socket.id);
 
     socket.on("join", (userId) => {
-      console.log("sfdhshfh", userId);
       if (userId) {
         handleJoin({
           userId,

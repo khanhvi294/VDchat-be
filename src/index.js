@@ -4,7 +4,7 @@ import cors from "cors";
 import { connectDB } from "./configs/db";
 const session = require("express-session");
 import { createServer } from "http";
-
+import fileUpload from "express-fileupload";
 import passport from "passport";
 import initRoutes from "./routes";
 import sockerServer, { initSocket } from "./socket";
@@ -14,6 +14,14 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    safeFileNames: true,
+    preserveExtension: true,
+    limits: { fileSize: 20 * 1024 * 1024 },
+  })
+);
 app.use(
   cors({
     origin: process.env.REACT_APP_CLIENT_URI,

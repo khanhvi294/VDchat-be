@@ -18,6 +18,7 @@ export const getResultPaginate = async ({
   const totalPages = Math.ceil(total / limit);
 
   page = +page;
+
   return {
     content,
     totalPages,

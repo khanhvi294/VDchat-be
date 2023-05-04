@@ -36,7 +36,27 @@ const unblockUser = async (req, res) => {
     return res.status(404).json({ error });
   }
 };
+const findUsersAndConversations = async (req, res) => {
+  console.log(typeof req.params.name);
+  console.log("xtl");
+  try {
+    let result = await userService.findUsersAndConversations(
+      req.params.name,
+      req.user.id
+    );
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log("errrr", error);
+    return res.status(404).json({ error });
+  }
+};
 
-const userController = { getUserInfo, updateUserInfo, blockUser, unblockUser };
+const userController = {
+  getUserInfo,
+  updateUserInfo,
+  blockUser,
+  unblockUser,
+  findUsersAndConversations,
+};
 
 export default userController;

@@ -31,4 +31,6 @@ router.patch("/block/:userId", verifyUser, userController.blockUser);
 
 router.patch("/unblock/:userId", verifyUser, userController.unblockUser);
 
+router.get("/find/:name", verifyUser, userController.findUsersAndConversations);
+
 export default router;

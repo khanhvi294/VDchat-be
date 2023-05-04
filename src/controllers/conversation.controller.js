@@ -10,7 +10,6 @@ const createConversation = async (req, res) => {
     // neu co realtime thi realtime o day
     return res.status(200).json(result);
   } catch (error) {
-    console.log("error ", error);
     return res.status(404).json({ error });
   }
 };
@@ -77,6 +76,7 @@ const removeMemberFromGroupChat = async (req, res) => {
     return res.status(404).json({ error });
   }
 };
+
 const conversationController = {
   createConversation,
   outGroupChat,
